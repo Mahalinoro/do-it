@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>doit.</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">    
+        <script src="/send_url.js"></script>
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <ul class="nav-items">
+                    <li class="logo">
+                        <a href="/">
+                            <img src="/images/Logo.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="index-content">
+            <div class="index-container">
+                <div class="index-table">
+                    <div class="table-titles">
+                        <ul class="table-items">
+                            <li class="index-title">Task List</li>
+                            <li>
+                                <a href="/new" class="index-button">+ Add task</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <table class="table">
+                        <tr class="table-head">
+                            <th class="item-center">ID</th>
+                            <th>Task</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        
+                        <% function formatDate(date) {
+                            var year = date.getFullYear().toString();
+                            var month = (date.getMonth() + 101).toString().substring(1);
+                            var day = (date.getDate() + 100).toString().substring(1);
+                            return day + "/" + month + "/" + year;
+                        }%>
+
+                        <% for(let i = 0; i < tasks.length; i++){  %>
+                        <% if(tasks[i].completion === 0){ %>
+                        <tr class="table-normal">
+                            <td class="item-center"><%= tasks[i].id %></td>
+                            <td class="item-large"><%= tasks[i].name %><br><b>Date: <%= formatDate(tasks[i].date) %></b></td>
+                            <td class="item-small">
+                                <form class="item-form" action="/delete/<%= tasks[i].id %>" method="post">
+                                    <input class="table-item-button" type="submit" value="Delete">
+                                </form>
+                            </td>
+                            <td class="item-small"><a class="table-item-button" href="/edit/<%= tasks[i].id %>">Edit</a></td>
+                            <td>
+                                <form class="item-form" action="/check/<%= tasks[i].id %>" method="post">
+                                    <button class="table-item-button" type="submit">
+                                        <img class="td-img" src="/images/Check.png">  
+                                    </button>                                     
+                                </form>
+                            </td>
+                        </tr>
+                        <% }} %>
+                        
+                        <% for(let i = 0; i < tasks.length; i++){  %>
+                            <% if(tasks[i].completion === 1){ %>
+                          <tr class="table-done">
+                            <td class="item-center item-opacity"><%= tasks[i].id %></td>
+                            <td class="item-large item-opacity"><span class="item-underline"><%= tasks[i].name %></span><br>Date: <%= formatDate(tasks[i].date) %></td>
+                            <td class="item-small item-opacity">
+                                <form class="item-form" action="/delete/<%= tasks[i].id %>" method="post">
+                                    <input class="table-item-button" type="submit" value="Delete">
+                                </form>
+                            </td>
+                            <td class="item-small item-opacity"><a class="table-item-button" href="/edit/<%= tasks[i].id %>">Edit</a></td>
+                            <td>
+                                <form class="item-form" action="/uncheck/<%= tasks[i].id %>"" method="post">
+                                    <button class="table-item-button" type="submit">
+                                        <img class="td-img" src="/images/Check-done.png">  
+                                    </button>                                     
+                                </form>
+                            </td>
+                          </tr>
+                        <% }} %>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+</html> 

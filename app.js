@@ -1,17 +1,21 @@
 const express = require('express');
 const mysql = require('mysql');
-require('dotenv').config();
 
 const app = express();
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'doit'
+  host: 'us-cdbr-east-02.cleardb.com',
+  user: 'b07e7a1cae7286',
+  password: 'a44d3021',
+  database: 'heroku_651f6825e46a0cd'
 });
 
 app.get('/', (req, res) => {
@@ -93,4 +97,3 @@ app.post('/delete/:id', (req, res) => {
 });
   
 
-app.listen(3000);

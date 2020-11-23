@@ -7,15 +7,20 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 const PORT = process.env.PORT || 3000;
 
+const HOST = process.env.HOST
+const USER = process.env.USER
+const PASSWORD = process.env.PASSWORD
+const DATABASE = process.env.DATABASE
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
 const connection = mysql.createConnection({
-  host: 'us-cdbr-east-02.cleardb.com',
-  user: 'b07e7a1cae7286',
-  password: 'a44d3021',
-  database: 'heroku_651f6825e46a0cd'
+  host: HOST,
+  user: USER,
+  password: PASSWORD,
+  database: DATABASE
 });
 
 app.get('/', (req, res) => {
